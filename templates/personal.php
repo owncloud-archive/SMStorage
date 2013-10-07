@@ -5,7 +5,7 @@
 <?php
 		require dirname(__DIR__) . '/3rdparty/countrycodes.php';
 		foreach ($countryCodes as $code => $country) {
-			$pos = strpos('||', $code);		// support different regions with same country code
+			$pos = strpos($code, '||');		// support different regions with same country code
 			if ($pos !== false)
 				$codeX = substr($code, 0, $pos);
 			else
