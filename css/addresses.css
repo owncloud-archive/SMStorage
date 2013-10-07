@@ -1,0 +1,39 @@
+#leftcontent .address, #leftcontent .address h3, #leftcontent .address div {
+	cursor: pointer;
+}
+#leftcontent .address {
+	-moz-transition: background 300ms ease 0s; 
+	background: none no-repeat scroll 1em center #eee; 
+	border-bottom: 1px solid #ddd;
+	border-top: 1px solid #fff;
+	display: block; 
+	max-width: 100%; 
+	height: 2em;
+	padding: 0.5em 0.8em; 
+	color: #666; 
+	text-shadow: 0 1px 0 #f8f8f8; 
+	font-size: 1.2em; 
+	cursor: hand;
+}
+#leftcontent .address:hover, #leftcontent .address:active, #leftcontent .address.active { 
+	background-color: #DBDBDB; 
+	border-bottom: 1px solid #CCCCCC;
+	border-top: 1px solid #D4D4D4; 
+	color: #333333;
+	font-weight: bold; 
+}
+#leftcontent .addressNumber {
+	font-weight: bold;
+	font-size: 0.7em;
+	margin-top: -3px;
+	margin-left: 5px;
+}
+#leftcontent .addressNum {
+	display: none;
+	float: right;
+	margin: -1.3em 0 0;
+	padding: 0;
+}
+#leftcontent .address:hover .addressNum, #leftcontent .address:active .addressNum, #leftcontent .address.active .addressNum {
+	display: inline-block;
+}

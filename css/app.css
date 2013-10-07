@@ -1,0 +1,62 @@
+#rightcontent {
+	bottom: 0;
+	left: 20em;
+	overflow: auto;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+.loading {
+	background: url('%webroot%/core/img/loading.gif') no-repeat center !important;
+	cursor: wait;
+}
+
+
+#smstorage-settings .settings { 
+	transition: background 300ms ease;
+	padding: 0.5em 0.8em;
+	text-indent: 18px;
+    display: inline-block;
+    cursor: pointer;
+    background-repeat: no-repeat;
+	width: 20px; height: 20px;
+	height:1.4em;
+	background-repeat: no-repeat;
+	background-position:0px 4px;
+	background-origin: content-box;
+	background-image:url('%webroot%/core/img/actions/settings.svg'); 
+}
+#smstorage-settings .settings:hover { 
+	background-color: #DBDBDB;
+	font-weight: normal;
+	color: #666;
+}
+#smstorage-settings.open {
+	height: auto;
+	z-index: 10;
+	overflow-y: auto;
+}
+#smstorage-settings {
+	-webkit-box-sizing: border-box; 
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background: none repeat scroll 0 0 #EEE;
+    border-right: 1px solid #CCC;
+    border-top: 1px solid #CCC;
+    bottom: 0;
+    height: 2.8em;
+    margin: 0;
+    overflow: visible;
+    padding: 0;
+    position: fixed;
+    width: 20em;
+    z-index: 2;
+}
+#smstorage-settings li,#smstorage-settings li:hover { background-color: transparent; white-space: nowrap; }
+#smstorage-settings a.action:not(.settings) { width: 16px; height: 16px; }
+#smstorage-settings .actions { float: right; }
+#smstorage-settings h2 {
+	text-indent: .5em;
+	font-weight: bold;
+	font-size: 1.2em;
+}

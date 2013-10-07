@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<info>
+	<id>smstorage</id>
+	<name>SMStorage</name>
+	<description>An application that enables the user to store SMS (backups) in the cloud. It works with the XML from the App "SMS Backup and Restore"</description>
+	<version>0.2</version>
+	<licence>AGPL</licence>
+	<author>Jonathan Stump</author>
+	<require>5</require>
+	<remote>
+		<smstorage>appinfo/remote.php</smstorage>
+	</remote>
+</info>
