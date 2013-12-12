@@ -256,12 +256,22 @@ EOSQL;
 			return $msg;
 		}
 
+		if ($type == 'text/xml' || $type == 'application/xml') {
+			if ($xml->sms->storage->count() !== 0) {
+				$type = 'MyPhoneExplorer';
+			} elseif ($xml->sms->attributes()->count !== 0) {
+				$type = 'SMSBackupAndRestore';
+			} else {
+				return 'XML Type could not be recognized';
+			}
+		}
+
 		$new = 0;
 		foreach ($xml->sms as $sms) {
-			$message = new Message($type, $sms->attributes());
+			$message = new Message($type, $sms);
 			$new += $message->insertIfNotExist();
 		}
 
-		return array($new, (int)$xml->attributes()->count);
+		return array($new, ((int)$xml->attributes()->count + (int)$xml->attributes()->messagecount));
 	}
 }

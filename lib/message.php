@@ -46,46 +46,65 @@ class Message {
 /**
  * Constructor of an SMS Message. Sets all properties
  * @param string $type The type of the source of $attributes: DB || SMSBackupAndRestore
- * @param object $attributes A SimpleXMLElement with Attributes that contain the information
+ * @param object $element A SimpleXMLElement with Attributes that contain the information
  * @since 1.0
  */
-	public function __construct($type, $attributes) {
+	public function __construct($type, $element) {
 		switch($type) {
 		case 'SMSBackupAndRestore':	// from import XML
-		case 'text/xml':
-		case 'application/xml':
-			$this->protocol 		= (int)		$attributes->protocol;
-			$this->date				= (int)		substr((string)$attributes->date, 0, strlen((string)$attributes->date)-3);
-			$this->type				= (int)		$attributes->type;
-			$this->subject			= (string)	$attributes->subject === 'null' ? NULL : (string)$attributes->subject;
-			$this->body				= (string)	$attributes->body;
-			$this->toa				= (string)	$attributes->toa === 'null' ? NULL : (string)$attributes->toa;
-			$this->sc_toa			= (string)	$attributes->sc_toa === 'null' ? NULL : (string)$attributes->sc_toa;
-			$this->read				= (boolean)	$attributes->read;
-			$this->status			= (int)		$attributes->status;
-			$this->locked			= (int)		$attributes->locked;
-			$this->date_sent		= (int)		$attributes->date_sent === 0 ? NULL : (int)(substr((string)$attributes->date_sent, 0, strlen((string)$attributes->date_sent)-3));
-			$this->service_center	= (string)	$attributes->service_center === 'null' ? NULL : (string)$attributes->service_center;
-			if (substr_compare((string)$attributes->address, '0', 0, 1) === 0) {
-				$this->address		= Config::CountryCode() . substr((string)$attributes->address, 1);
+			$element = $element->attributes();
+			$this->protocol 		= (int)		$element->protocol;
+			$this->date				= (int)		substr((string)$element->date, 0, strlen((string)$element->date)-3);
+			$this->type				= (int)		$element->type;
+			$this->subject			= (string)	$element->subject === 'null' ? NULL : (string)$element->subject;
+			$this->body				= (string)	$element->body;
+			$this->toa				= (string)	$element->toa === 'null' ? NULL : (string)$element->toa;
+			$this->sc_toa			= (string)	$element->sc_toa === 'null' ? NULL : (string)$element->sc_toa;
+			$this->read				= (boolean)	$element->read;
+			$this->status			= (int)		$element->status;
+			$this->locked			= (int)		$element->locked;
+			$this->date_sent		= (int)		$element->date_sent === 0 ? NULL : (int)(substr((string)$element->date_sent, 0, strlen((string)$element->date_sent)-3));
+			$this->service_center	= (string)	$element->service_center === 'null' ? NULL : (string)$element->service_center;
+			if (substr_compare((string)$element->address, '0', 0, 1) === 0) {
+				$this->address		= Config::CountryCode() . substr((string)$element->address, 1);
 			} else {
-				$this->address		= (string)	$attributes->address;
+				$this->address		= (string)	$element->address;
+			}
+			break;
+		case 'MyPhoneExplorer':	// from import XML
+			$this->protocol 		= (int)		0;
+			$this->date				= (int)		$element->timestamp->count() !== 0 ? (new \DateTime((string)$element->timestamp))->getTimestamp() : 0;
+			$this->type				= (int)		($element->from->count() !== 0 ? self::TYPE_RECEIVED : self::TYPE_SENT);
+			$this->subject			= (string)	NULL;
+			$this->body				= (string)	$element->body;
+			$this->toa				= (string)	NULL;
+			$this->sc_toa			= (string)	NULL;
+			$this->read				= (boolean)	TRUE;
+			$this->status			= (int)		-1;
+			$this->locked			= (int)		0;
+			$this->date_sent		= (int)		NULL;
+			$this->service_center	= (string)	NULL;
+			$address = (string)($element->from->count() !== 0 ? $element->from : $element->to);
+			if (substr_compare($address, '0', 0, 1) === 0) {
+				$this->address		= Config::CountryCode() . substr($address, 1);
+			} else {
+				$this->address		= (string)	($address);
 			}
 			break;
 		case 'DB':					// from Database
-			$this->protocol			= (int)		$attributes['protocol'];
-			$this->date				= (int)		$attributes['date'];
-			$this->type				= (int)		$attributes['type'];
-			$this->subject			= $attributes['subject'] === NULL ? NULL : (string)	$attributes['subject'];
-			$this->body				= (string)	$attributes['body'];
-			$this->toa				= $attributes['toa'] === NULL ? NULL : (string)	$attributes['toa'];
-			$this->sc_toa			= $attributes['sc_toa'] === NULL ? NULL : (string)	$attributes['sc_toa'];
-			$this->service_center	= $attributes['service_center'] === NULL ? NULL : (string)	$attributes['service_center'];
-			$this->read				= (boolean)	$attributes['read'];
-			$this->status			= (int)		$attributes['status'];
-			$this->locked			= (int)		$attributes['locked'];
-			$this->date_sent		= (int)		$attributes['date_sent'];
-			$this->address			= (string)	$attributes['address'];
+			$this->protocol			= (int)		$element['protocol'];
+			$this->date				= (int)		$element['date'];
+			$this->type				= (int)		$element['type'];
+			$this->subject			= 			$element['subject'] === 		NULL ? NULL : (string)	$element['subject'];
+			$this->body				= (string)	$element['body'];
+			$this->toa				= 			$element['toa'] === 			NULL ? NULL : (string)	$element['toa'];
+			$this->sc_toa			= 			$element['sc_toa'] === 			NULL ? NULL : (string)	$element['sc_toa'];
+			$this->service_center	= 			$element['service_center'] === 	NULL ? NULL : (string)	$element['service_center'];
+			$this->read				= (boolean)	$element['read'];
+			$this->status			= (int)		$element['status'];
+			$this->locked			= (int)		$element['locked'];
+			$this->date_sent		= (int)		$element['date_sent'];
+			$this->address			= (string)	$element['address'];
 			break;
 		default:
 			throw new \Exception('Error creating new Message instance from type ' . $type);
