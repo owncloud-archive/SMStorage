@@ -51,10 +51,10 @@
                 console.log('Upload done:', data.result);
                 $('.import-upload').show();
                 $('.import-status').hide();
-                if (data.result.status == 'success') {
+                if (data.result && data.result.status == 'success') {
 					alert('Imported ' + data.result.inserted + ' of ' + data.result.total + ' messages.');
 				} else {
-					alert(data.result.message);
+					alert(data.result.message || 'Nothing returned');
 				}
 				$(this).parents('#smstorage-settings').removeClass('open');
 				if (data.result.inserted > 0) {
@@ -106,7 +106,7 @@
 			}
 		}
 		
-		if (!addAddress) {
+		if (!addressData) {
 			return;
 		}
 
@@ -207,7 +207,7 @@
 		}
 
 		var template = this.messageTemplate.octemplate({
-				'direction': (message['type'] == 1 ? 'right' : 'left'),
+				'direction': (message['type'] == 1 ? 'received' : 'sent'),
 				'date': message.date,
 				'body': message.body});
 		this.rightContent.append(template);
