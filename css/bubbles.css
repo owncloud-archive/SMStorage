@@ -10,20 +10,20 @@
 	clear: both;
 }
 
-.bubble.left {
+.bubble.sent {
 	float: left;
 	background: linear-gradient(rgb(251, 218, 55), rgb(240, 146, 26));
 }
-.bubble.left:before {
+.bubble.sent:before {
 	border-top-color: rgb(240, 146, 26);
 	left: 10%;
 }
 
-.bubble.right {
+.bubble.received {
 	float: right;
 	background: linear-gradient(rgb(55, 100, 250), rgb(35, 70, 180));
 }
-.bubble.right:before {
+.bubble.received:before {
 	border-top-color: rgb(35, 70, 180);
 	right: 10%;
 }
@@ -46,7 +46,7 @@
 	color: black;
 }
 
-.bubble.right h2 {
+.bubble.received h2 {
 	float: right;
 }
 
@@ -55,6 +55,6 @@
 	clear: both;
 }
 
-.bubble.right + .bubble.right, .bubble.left + .bubble.left {
+.bubble.received + .bubble.received, .bubble.sent + .bubble.sent {
 	margin-top: -9px;
 }

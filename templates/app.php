@@ -9,7 +9,7 @@
 						<input id="import-upload-input" class="tooltipped rightwards" title="<?php p($l->t('Select file...')); ?>" type="file" name="file" />
 					</li>
 					<li class="import-status">
-						<label id="import-status-text">Uploading...</label>
+						<label id="import-status-text" style="display:none">Uploading...</label>
 						<div id="import-status-progress"></div>
 					</li>
 				</ul>
