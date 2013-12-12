@@ -1,6 +1,6 @@
 #rightcontent {
 	bottom: 0;
-	left: 20em;
+	left: 23em;
 	overflow: auto;
 	position: absolute;
 	right: 0;
@@ -49,7 +49,7 @@
     overflow: visible;
     padding: 0;
     position: fixed;
-    width: 20em;
+    width: 21.4em;
     z-index: 2;
 }
 #smstorage-settings li,#smstorage-settings li:hover { background-color: transparent; white-space: nowrap; }
