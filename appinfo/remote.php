@@ -16,7 +16,7 @@ header('Content-Type: text/xml');
 
 
 // Parse Path Info
-$path_info = \OC_Request::getPathInfo();
+$path_info = \OC::$server->getRequest()->getPathInfo();
 if (substr_compare($path_info, '/smstorage/', 0, 11) !== 0) {
 	\OC_Response::setStatus(\OC_Response::STATUS_NOT_FOUND);
 	exit;
